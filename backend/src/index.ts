@@ -4,6 +4,7 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 
 import userRoutes from './routes/users';
+import authRoutes from './routes/auth';
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
 
@@ -14,9 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/api/users', userRoutes);
-app.get('/api/users/register', (req: Request, res: Response) => {
-  res.send('Hello world');
-});
+app.use('/api/auth', authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on ${process.env.PORT}`);
