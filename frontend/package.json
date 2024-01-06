@@ -11,9 +11,13 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1"
+    "react-hook-form": "^7.49.2",
+    "react-router-dom": "^6.21.1",
+    "tailwind-merge": "^2.2.0",
+    "yup": "^1.3.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
@@ -33,6 +37,7 @@
     "vite": "^5.0.8"
   },
   "prettier": {
+    "singleAttributePerLine": true,
     "plugins": [
       "prettier-plugin-tailwindcss"
     ]

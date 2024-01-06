@@ -12,7 +12,11 @@ export default {
     center: true,
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "white-main": "#fcfcfc",
+      },
+    },
   },
   plugins: [],
 };

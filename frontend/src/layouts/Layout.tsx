@@ -8,12 +8,12 @@ type TLayout = {
 
 const Layout = ({ children }: TLayout) => {
   return (
-    <body className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
       <Header />
       <Hero />
       <main className="container mx-auto flex-1 py-10">{children}</main>
       <Footer />
-    </body>
+    </div>
   );
 };
 
