@@ -6,6 +6,7 @@ import InputRegister from "../components/ui/input/InputRegister";
 import MainButton from "../components/ui/button/MainButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import authApi from "../api/client";
 
 const Register = () => {
   const registerSchema = yup.object({
@@ -32,8 +33,9 @@ const Register = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const onSubmit = (data: TRegisterFormData) => {
-    console.log("data: ", data);
+  const onSubmit = async (data: TRegisterFormData) => {
+    const result = await authApi.register(data);
+    console.log(result);
   };
 
   return (

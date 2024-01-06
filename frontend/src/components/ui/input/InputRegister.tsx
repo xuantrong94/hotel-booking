@@ -18,7 +18,6 @@ const InputRegister = ({
   control,
   errors,
 }: Props) => {
-  console.log(errors);
   return (
     <div className="space-y-2">
       <label
@@ -33,14 +32,12 @@ const InputRegister = ({
         defaultValue=""
         rules={validate}
         render={({ field }) => (
-          <>
-            <input
-              type="text"
-              className="w-full rounded border px-2 py-1 font-normal"
-              placeholder={placeholder}
-              {...field}
-            />
-          </>
+          <input
+            type="text"
+            className="w-full rounded border px-2 py-1 font-normal"
+            placeholder={placeholder}
+            {...field}
+          />
         )}
       />
       <p className="text-red-300">
