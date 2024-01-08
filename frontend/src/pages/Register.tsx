@@ -7,6 +7,7 @@ import MainButton from "../components/ui/button/MainButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import authApi from "../api/client";
+import { ToastContainer, toast } from "react-toastify";
 
 const Register = () => {
   const registerSchema = yup.object({
@@ -34,8 +35,11 @@ const Register = () => {
   });
 
   const onSubmit = async (data: TRegisterFormData) => {
-    const result = await authApi.register(data);
-    console.log(result);
+    const newUser = { ...data, confirmPassword };
+    const res = await authApi.register(data);
+    if (res.status === 201) {
+      toast("Register success");
+    }
   };
 
   return (
@@ -61,6 +65,7 @@ const Register = () => {
           type: "submit",
         }}
       />
+      <ToastContainer />
     </form>
   );
 };

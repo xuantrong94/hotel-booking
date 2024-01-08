@@ -21,9 +21,9 @@ axiosInstance.interceptors.request.use(async (config) => {
 
 axiosInstance.interceptors.response.use(
   (res) => {
-    if (res && res.data) {
-      return res.data;
-    }
+    // if (res && res.data) {
+    //   return res.data;
+    // }
     return res;
   },
   (err) => {

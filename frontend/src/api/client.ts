@@ -6,7 +6,9 @@ const BASE_PATH = "/auth";
 const authApi = {
   login: (data: TRegisterFormData) => {
     const url = `${BASE_PATH}/login`;
-    return axiosInstance.post(url, data);
+    return axiosInstance.post(url, data, {
+      withCredentials: true,
+    });
   },
   register: (data: TRegisterFormData) => {
     const url = `${BASE_PATH}/register`;

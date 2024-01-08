@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import { validationResult } from 'express-validator';
 
+//path api/auth/login
 export const login = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -23,7 +24,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'Invalid Credentials' });
     }
     // Generate token
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
       {
         userId: user.id,
       },
@@ -34,18 +35,26 @@ export const login = async (req: Request, res: Response) => {
     );
 
     // Send token in HTTP-only cookie
-    res.cookie('auth_token', token, {
+    res.cookie('auth_token', accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     });
 
-    return res.status(200).json({ userId: user._id, message: 'Login success' });
+    return res
+      .status(200)
+      .json({
+        userId: user._id,
+        message: 'Login success',
+        status: 'success',
+        accessToken: accessToken,
+      });
   } catch (error) {
     res.status(500).send({ message: 'Server error auth' });
   }
 };
 
+//path api/auth/register
 export const register = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -60,7 +69,7 @@ export const register = async (req: Request, res: Response) => {
     await user.save();
     // Generate token
     const token = jwt.sign(
-      { userId: user.id },
+      { userId: user._id },
       process.env.JWT_SECRET_KEY as string,
       {
         expiresIn: '1d',
@@ -73,7 +82,7 @@ export const register = async (req: Request, res: Response) => {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     });
 
-    return res.status(201).send(user);
+    return res.status(201).json({ message: 'User created' });
   } catch (error) {
     res.status(500).send({ message: 'Server error' });
   }
